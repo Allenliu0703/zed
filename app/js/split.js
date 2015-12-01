@@ -53,6 +53,9 @@ define(function(require, exports, module) {
                         case "3":
                             splitThree();
                             break;
+                        case "4":
+                            splitFour();
+                            break;
                     }
                     eventbus.emit("splitswitched", editor.getActiveEditor());
                 });
@@ -123,6 +126,17 @@ define(function(require, exports, module) {
             eventbus.emit("splitchange", "3");
             eventbus.emit("splitswitched", edit);
         }
+        
+        function splitFour() {
+            state.set("split", "4");
+            resetEditorDiv($("#editor0")).addClass("editor-hsplit4-top");
+            resetEditorDiv($("#editor1")).addClass("editor-hsplit4-bottom");
+            var edit = editor.getEditors(true)[3];
+            editor.setActiveEditor(edit);
+            resizeEditors();
+            eventbus.emit("splitchange", "4");
+            eventbus.emit("splitswitched", edit);
+        }
 
         function resizeEditors() {
             editor.getEditors().forEach(function(editor) {
@@ -187,6 +201,13 @@ define(function(require, exports, module) {
             exec: splitThree,
             readOnly: true
         });
+        
+        command.define("Split:Horizontal Four", {
+            doc: "Show two horizontal editor panes.",
+            exec: splitFour,
+            readOnly: true
+        });
+
 
         command.define("Split:Switch Focus", {
             doc: "Move the active cursor to the next editor pane.",
@@ -201,8 +222,10 @@ define(function(require, exports, module) {
             if (idx >= visibleEditors.length) {
                 if (idx === 1) {
                     splitTwo();
-                } else { // idx == 3
+                } else if (idx === 2){ // idx == 3
                     splitThree();
+                } else {
+                    splitFour();
                 }
             }
             editor.switchSession(allEditors[idx].session, activeEditor);
@@ -225,6 +248,13 @@ define(function(require, exports, module) {
         command.define("Split:Move To Third", {
             exec: function(edit, session) {
                 swapSession(edit, session, 2);
+            },
+            readOnly: true
+        });
+        
+        command.define("Split:Move To Fourth", {
+            exec: function(edit, session) {
+                swapSession(edit, session, 3);
             },
             readOnly: true
         });
