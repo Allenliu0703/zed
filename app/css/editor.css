@@ -210,6 +210,16 @@ div.pathbar-vsplit3-right {
     right: 0;
     width: 33.3%;
 }
+div.pathbar-hsplit4-top {
+    left: 0;
+    right: 0;
+    top: 0;
+}
+div.pathbar-hsplit4-bottom {
+    left: 0;
+    right: 0;
+    height: 50%;
+}
 div.preview-vsplit2-right-0 {
     position: absolute;
     border-left: 1px solid #aaa;
