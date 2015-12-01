@@ -202,7 +202,7 @@ define(function(require, exports, module) {
             readOnly: true
         });
         
-        command.define("Split:Horizontal Four", {
+        command.define("Split:Horizontal Two", {
             doc: "Show two horizontal editor panes.",
             exec: splitFour,
             readOnly: true

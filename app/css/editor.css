@@ -150,6 +150,22 @@ div.editor-vsplit3-right {
     bottom: 0;
     width: 33.3%;
 }
+div.editor-hsplit4-top {
+    position: absolute;
+    border-left: 1px solid #aaa;
+    top: 0;
+    right: 0;
+    bottom: 50%;
+    width: 100%;
+}
+div.editor-hsplit4-bottom {
+    position: absolute;
+    border-left: 1px solid #aaa;
+    top: 50%;
+    right: 0;
+    bottom: 100%;
+    width: 100%;
+}
 div.pathbar-single {
     right: 0;
     left: 0;
