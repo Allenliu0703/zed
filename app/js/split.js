@@ -41,24 +41,31 @@ define(function(require, exports, module) {
                         case "1":
                             splitOne();
                             break;
-                        case "2-0":
-                            splitTwo(0);
+                        case "2-0-0":
+                            splitTwo(0,0); //second param orientation, 0 = vertical, 1 = horizontal
                             break;
-                        case "2-1":
-                            splitTwo(1);
+                        case "2-1-0":
+                            splitTwo(1,0);
                             break;
-                        case "2-2":
-                            splitTwo(2);
+                        case "2-2-0":
+                            splitTwo(2,0);    
+                            break;
+                        case "2-0-1":
+                            splitTwo(0,1);
+                            break;
+                        case "2-1-1":
+                            splitTwo(1,1);
+                            break;
+                        case "2-2-1":
+                            splitTwo(2,1);    
                             break;
                         case "3":
                             splitThree();
                             break;
-                        case "4":
-                            splitFour();
-                            break;
                     }
                     eventbus.emit("splitswitched", editor.getActiveEditor());
                 });
+        //might have to change state.get
 
                 eventbus.on("splitswitched", updateActiveEditorStyling);
                 eventbus.on("configchanged", updateActiveEditorStylingOnConfigChange);
@@ -94,7 +101,8 @@ define(function(require, exports, module) {
             eventbus.emit("splitswitched", newActiveEditor);
         }
 
-        function splitTwo(style) {
+        function splitTwo(style, orientation) {
+
             if (style === undefined) {
                 var currentSplit = "" + state.get("split") || "1";
                 if (currentSplit.indexOf("2-") === 0) {
@@ -104,14 +112,14 @@ define(function(require, exports, module) {
                     style = 0;
                 }
             }
-            state.set("split", "2-" + style);
-            resetEditorDiv($("#editor0")).addClass("editor-vsplit2-left-" + style);
-            resetEditorDiv($("#editor1")).addClass("editor-vsplit2-right-" + style);
+            state.set("split", "2-" + style + "-" + orientation);
+            resetEditorDiv($("#editor0")).addClass("editor-vsplit2-left-" + style + "-" + orientation);
+            resetEditorDiv($("#editor1")).addClass("editor-vsplit2-right-" + style + "-" + orientation);
             resetEditorDiv($("#editor2")).addClass("editor-disabled");
             var edit = editor.getEditors(true)[1];
             editor.setActiveEditor(edit);
             resizeEditors();
-            eventbus.emit("splitchange", "2-" + style);
+            eventbus.emit("splitchange", "2-" + style + "-" + orientation);
             eventbus.emit("splitswitched", edit);
         }
 
@@ -127,6 +135,7 @@ define(function(require, exports, module) {
             eventbus.emit("splitswitched", edit);
         }
         
+        /*
         function splitFour() {
             state.set("split", "4");
             resetEditorDiv($("#editor0")).addClass("editor-hsplit4-top");
@@ -138,6 +147,7 @@ define(function(require, exports, module) {
             eventbus.emit("splitchange", "4");
             eventbus.emit("splitswitched", edit);
         }
+        */
 
         function resizeEditors() {
             editor.getEditors().forEach(function(editor) {
@@ -203,11 +213,13 @@ define(function(require, exports, module) {
             readOnly: true
         });
         
+        /*
         command.define("Split:Horizontal Two", {
             doc: "Show two horizontal editor panes.",
             exec: splitFour,
             readOnly: true
         });
+        */
 
 
         command.define("Split:Switch Focus", {
@@ -223,10 +235,8 @@ define(function(require, exports, module) {
             if (idx >= visibleEditors.length) {
                 if (idx === 1) {
                     splitTwo();
-                } else if (idx === 2){ // idx == 3
-                    splitThree();
                 } else {
-                    splitFour();
+                    splitThree();
                 }
             }
             editor.switchSession(allEditors[idx].session, activeEditor);
@@ -253,12 +263,14 @@ define(function(require, exports, module) {
             readOnly: true
         });
         
+        /*
         command.define("Split:Move To Fourth", {
             exec: function(edit, session) {
                 swapSession(edit, session, 3);
             },
             readOnly: true
         });
+        */
 
         register(null, {
             split: api
