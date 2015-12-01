@@ -131,7 +131,8 @@ define(function(require, exports, module) {
             state.set("split", "4");
             resetEditorDiv($("#editor0")).addClass("editor-hsplit4-top");
             resetEditorDiv($("#editor1")).addClass("editor-hsplit4-bottom");
-            var edit = editor.getEditors(true)[3];
+            resetEditorDiv($("#editor2")).addClass("editor-disabled");
+            var edit = editor.getEditors(true)[1];
             editor.setActiveEditor(edit);
             resizeEditors();
             eventbus.emit("splitchange", "4");
