@@ -270,6 +270,10 @@
             "mac": "Command-3",
             "win": "Ctrl-3"
         },
+        "Split:Horizontal Two": {
+            "mac": "Command-4",
+            "win": "Ctrl-4"
+        },
         "Split:Switch Focus": {
             "mac": "Command-0",
             "win": "Ctrl-0"
