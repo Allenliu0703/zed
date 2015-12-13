@@ -1,0 +1,11 @@
+Zed:
+  1. We want to add a feature of horizontally splitting screens(editors). 
+  2. List of Implementations:
+    Implementation 1: plugin, splitFour, command.define function
+    File: zed/app/js/split.js
+
+    Implementation 2: “Split:Horizontal Two” declarition  
+    File: zed/app/config/default/keys.json
+
+    Implementation 3: div.editor-hsplit4-top and div.editor-hsplit4-top functions
+    File: zed/app/css/editor.css
